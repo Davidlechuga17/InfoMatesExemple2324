@@ -17,5 +17,12 @@ public class bala : MonoBehaviour
         Vector2 novaPos = transform.position;
         novaPos.y += velocity * Time.deltaTime;
         transform.position = novaPos;
+
+        float limitArribaY = Camera.main.orthographicSize;
+
+        if (novaPos.y >= limitArribaY)
+        {
+            Destroy(gameObject);
+        }
     }
 }

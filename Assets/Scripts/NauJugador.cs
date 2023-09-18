@@ -16,7 +16,6 @@ public class NauJugador : MonoBehaviour
     void Update()
     {
         float direccioHorizontal = Input.GetAxisRaw("Horizontal");
-        //Debug.Log(direccioHorizontal);
         float direccioVertical = Input.GetAxisRaw("Vertical");
 
         Vector2 direccioIndicada = new Vector2(direccioHorizontal, direccioVertical).normalized;
@@ -37,7 +36,18 @@ public class NauJugador : MonoBehaviour
         novaPos.x = Mathf.Clamp(novaPos.x, limitEsquerraX, limitDretaX);
         novaPos.y = Mathf.Clamp(novaPos.y, limitAbajoY, limitArribaY);
 
+        if (Input.GetKeyDown(KeyCode.Space)){
+            shoot();
+        }
+
+
         transform.position = novaPos;
+
+    }
+
+    private void shoot(){
+        GameObject bala = Instantiate(Resources.Load("Prefabs/bala") as GameObject);
+        bala.transform.position = this.transform.position;
 
     }
 }
