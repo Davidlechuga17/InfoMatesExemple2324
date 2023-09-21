@@ -5,10 +5,20 @@ using UnityEngine;
 public class Numero : MonoBehaviour
 {
     private float _vel;
+    private int _valorNumero;
+
+    public Sprite[] _spritesNumeros = new Sprite[10];
+
     // Start is called before the first frame update
     void Start()
     {
         _vel = 2f;
+
+        //Carreguem imatge de numero aleatori
+        System.Random aleatori = new System.Random();
+        _valorNumero = aleatori.Next(0,10); //Aleatori entre 0 i 9
+        //Accedim al component Sprite Renderer i dins d'aquest, a l'atribut Sprite
+        gameObject.GetComponent<SpriteRenderer>().sprite = _spritesNumeros[_valorNumero];
     }
 
     // Update is called once per frame
@@ -19,6 +29,14 @@ public class Numero : MonoBehaviour
         transform.position = novaPos;
 
         DestrueixSiSurtFora();
+    }
+
+    private void OnTriggerEnter2D(Collider2D objecteTocat)
+    {
+        if (objecteTocat.tag == "bala" || objecteTocat.tag == "NauJugador") 
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void DestrueixSiSurtFora()
