@@ -9,11 +9,18 @@ public class NauJugador : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _velNau = 5f;
+        _velNau = 7f;
     }
 
     // Update is called once per frame
     void Update()
+    {
+        MovimentNau();
+
+        DispararBala();
+    }
+
+    private void MovimentNau() 
     {
         float direccioHorizontal = Input.GetAxisRaw("Horizontal");
         float direccioVertical = Input.GetAxisRaw("Vertical");
@@ -27,8 +34,8 @@ public class NauJugador : MonoBehaviour
         float limitEsquerraX = -Camera.main.orthographicSize * Camera.main.aspect + anchura;
         float limitDretaX = Camera.main.orthographicSize * Camera.main.aspect - anchura;
 
-        float limitArribaY = Camera.main.orthographicSize -largura;
-        float limitAbajoY = -Camera.main.orthographicSize +largura;
+        float limitArribaY = Camera.main.orthographicSize - largura;
+        float limitAbajoY = -Camera.main.orthographicSize + largura;
 
         Vector2 novaPos = transform.position; //Ens retorna la posicio actual de la nau.
         novaPos += direccioIndicada * _velNau * Time.deltaTime;
@@ -36,18 +43,16 @@ public class NauJugador : MonoBehaviour
         novaPos.x = Mathf.Clamp(novaPos.x, limitEsquerraX, limitDretaX);
         novaPos.y = Mathf.Clamp(novaPos.y, limitAbajoY, limitArribaY);
 
-        if (Input.GetKeyDown(KeyCode.Space)){
-            shoot();
-        }
-
-
         transform.position = novaPos;
-
     }
 
-    private void shoot(){
-        GameObject bala = Instantiate(Resources.Load("Prefabs/bala") as GameObject);
-        bala.transform.position = this.transform.position;
-
+    private void DispararBala() 
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject bala = Instantiate(Resources.Load("Prefabs/bala") as GameObject);
+            bala.transform.position = transform.position;
+        }
     }
+    
 }

@@ -24,5 +24,7 @@ public class bala : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+
     }
 }
