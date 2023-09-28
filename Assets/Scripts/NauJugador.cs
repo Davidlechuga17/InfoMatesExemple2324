@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class NauJugador : MonoBehaviour
 {
-    [SerializeField] private float _velNau;
+    public float _velNau;
+    public GameObject _PrefabExplosio;
 
     // Start is called before the first frame update
     void Start()
@@ -20,12 +21,15 @@ public class NauJugador : MonoBehaviour
         DispararBala();
     }
 
+
     private void OnTriggerEnter2D(Collider2D objecteTocat)
     {
         //Quan la nau toqui un objecte, automaticament es cridara al metode
         //El valor de objecteTocat, sera l'objecte que hem tocat (per exemple, un numero)
         if (objecteTocat.tag == "Numero") 
         {
+            GameObject explosio = Instantiate(_PrefabExplosio);
+            explosio.transform.position = transform.position;
             Destroy(gameObject);        
         }
     }
